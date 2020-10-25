@@ -89,6 +89,9 @@ def append_rows(sheet_id, sheet_range, vals):
     return count
 
 if __name__ == '__main__':
+    # Running this file will get stuff from a sample google sheet.
+    # Useful if you need to auth.  Get config/credentials.json first.
+
     SAMPLE_SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
     SAMPLE_RANGE_NAME = 'Class Data!A2:E'
     values = get_sheet_range(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME)
