@@ -1,0 +1,6 @@
+/config/config.py
+/config/credentials.json
+/config/token.pickle
+/venv/
+/output/
+/.idea/
