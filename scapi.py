@@ -118,7 +118,7 @@ def get_new_rows(srclist, dstids, fields):
     ''' take list o dict and return list o lists (just fields) if not in dstids'''
     retval = []
     for s in srclist:
-        if str(s.id) in dstids:
+        if str(s['id']) in dstids:
             continue
         retval.append(event_to_row(s, fields))
     return retval
@@ -138,11 +138,19 @@ if __name__ == '__main__':
         evs.extend(get_events(sc, s))
         ass.extend(get_ass(sc, s))
 
-    # TODO: Parse ass for those not covered by evs
+    evass = list_o_keys(evs, 'assignment_id')
+    extras = []
+    for a in ass:
+        if a.id not in evass:
+            li = dict(a)
+            li['id'] = 0 - li['id']
+            extras.append(li)
 
 
     in_goog = get_uploaded_ids(hw_ss_id, hw_range)
-    rows = get_new_rows(evs, in_goog, hdrs)
+    rows = get_new_rows(evs, in_goog, ev_hdrs)
+    rows.extend(get_new_rows(extras, in_goog, as_hdrs))
+
     if rows:
         print("New Items:", len(rows))
         # TODO add FALSE values (or checkboxes?) to end of rows?
