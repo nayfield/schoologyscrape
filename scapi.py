@@ -84,7 +84,6 @@ def csv_out_sub(fname, toCSV, fields):
 
 def list_o_keys(lis, field):
     '''takes a list of dicts and returns a list of values of the dict field'''
-    #TODO - FIX the issue with non present fields in particular items
     retval = []
     for k in lis:
         if field in k:
@@ -147,4 +146,4 @@ if __name__ == '__main__':
     if rows:
         print("New Items:", len(rows))
         # TODO add FALSE values (or checkboxes?) to end of rows?
-        # sheets_test.append_rows(hw_ss_id, hw_range, rows)
+        sheets_test.append_rows(hw_ss_id, hw_range, rows)
