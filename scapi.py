@@ -154,4 +154,7 @@ if __name__ == '__main__':
     if rows:
         print("New Items:", len(rows))
         # TODO add FALSE values (or checkboxes?) to end of rows?
-        sheets_test.append_rows(hw_ss_id, hw_range, rows)
+        apout = sheets_test.append_rows(hw_ss_id, hw_range, rows)
+        newrange = apout['updates']['updatedRange']
+        chkrange = sheets_test.ext_range(newrange, 4)
+        ckout = sheets_test.insChk(hw_ss_id, chkrange)

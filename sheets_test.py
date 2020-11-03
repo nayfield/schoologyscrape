@@ -9,6 +9,8 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+import re
+
 
 
 
@@ -86,7 +88,33 @@ def append_rows(sheet_id, sheet_range, vals):
                                    valueInputOption='USER_ENTERED', body=body).execute()
     count = result.get('UpdatedCells')
 
-    return count
+    return result
+
+def add_col(c, n):
+    '''Add or subtract columns.  TODO make work beyond Z (AA)'''
+    return chr(ord(c) + n)
+
+def ext_range(up, ncols):
+    '''given a range spec, return a range of ncols more columns'''
+    #print(type(up))
+    if '!' in up:
+        retval, range = up.split('!')
+        retval = retval + '!'
+    else:
+        retval = ''
+        range = up
+
+    ost, oen = re.findall('(\w+?)(\d+)', range)
+
+    retval = retval + add_col(oen[0], 1) + ost[1] + ':'
+    retval = retval + add_col(oen[0], ncols) + oen[1]
+    return retval
+
+def insChk(ss, range):
+    print('HUMAN!  Add checkboxes to {} range {}'.format(ss, range))
+    # TODO implement
+
+    return True
 
 if __name__ == '__main__':
     # Running this file will get stuff from a sample google sheet.
