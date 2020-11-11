@@ -148,8 +148,15 @@ if __name__ == '__main__':
 
 
     in_goog = get_uploaded_ids(hw_ss_id, hw_range)
-    rows = get_new_rows(evs, in_goog, ev_hdrs)
-    rows.extend(get_new_rows(extras, in_goog, as_hdrs))
+    rrows = get_new_rows(evs, in_goog, ev_hdrs)
+    rrows.extend(get_new_rows(extras, in_goog, as_hdrs))
+
+    # hack - skip rows with empty date field [3]
+    rows = []
+    for r in rrows:
+        if r[3]:
+            rows.append(r)
+
 
     if rows:
         print("New Items:", len(rows))
